@@ -1,4 +1,4 @@
-## Create a diagram depicting the situation where the user creates a new note on the page https://studies.cs.helsinki.fi/exampleapp/notes by writing something into the text field and clicking the Save button.
+##### Create a diagram depicting the situation where the user creates a new note on the page https://studies.cs.helsinki.fi/exampleapp/notes by writing something into the text field and clicking the Save button.
 
 1. First user writes something into the text field and clicks the "Save" button.
 2. Browser sends an HTTP POST request to https://studies.cs.helsinki.fi/exampleapp/new_note .
