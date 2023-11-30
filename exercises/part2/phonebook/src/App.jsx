@@ -52,34 +52,34 @@ const App = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const foundPerson = persons.find(({ name }) => name === newName) || false;
-    if (foundPerson) {
-      if (
-        window.confirm(
-          `${newName} is already added to phonebook, replace the old number with a new one?`
-        )
-      ) {
-        const error = await personService.update(foundPerson.id, {
-          ...foundPerson,
-          number: newNumber,
-        });
-        if (!error) {
-          setPersons((prevPersons) =>
-            prevPersons.map((person) =>
-              person.id === foundPerson.id
-                ? { ...person, number: newNumber }
-                : person
-            )
-          );
-          setErrorMessage(`${foundPerson.name}'s number has changed`);
-        } else {
-          setErrorMessage(
-            `Information of ${foundPerson.name} has already removed from server.`
-          );
+    try {
+      const foundPerson = persons.find(({ name }) => name === newName) || false;
+      if (foundPerson) {
+        if (
+          window.confirm(
+            `${newName} is already added to phonebook, replace the old number with a new one?`
+          )
+        ) {
+          const error = await personService.update(foundPerson.id, {
+            ...foundPerson,
+            number: newNumber,
+          });
+          if (!error) {
+            setPersons((prevPersons) =>
+              prevPersons.map((person) =>
+                person.id === foundPerson.id
+                  ? { ...person, number: newNumber }
+                  : person
+              )
+            );
+            setErrorMessage(`${foundPerson.name}'s number has changed`);
+          } else {
+            setErrorMessage(
+              `Information of ${foundPerson.name} has already removed from server.`
+            );
+          }
         }
-      }
-    } else {
-      try {
+      } else {
         const newPerson = await personService.create({
           name: newName,
           number: newNumber,
@@ -89,9 +89,9 @@ const App = () => {
         setNewName("");
         setNewNumber("");
         setErrorMessage(`Added ${newPerson.name}`);
-      } catch (error) {
-        setErrorMessage(error.response.data.error);
       }
+    } catch (error) {
+      setErrorMessage(error.response.data.error);
     }
     setTimeout(() => {
       setErrorMessage(null);
