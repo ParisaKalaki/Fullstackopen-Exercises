@@ -52,8 +52,8 @@ const App = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    const foundPerson = persons.find(({ name }) => name === newName) || false;
     try {
-      const foundPerson = persons.find(({ name }) => name === newName) || false;
       if (foundPerson) {
         if (
           window.confirm(
@@ -74,9 +74,6 @@ const App = () => {
           );
           setErrorMessage(`${foundPerson.name}'s number has changed`);
         }
-        // setErrorMessage(
-        //   `Information of ${foundPerson.name} has already removed from server.`
-        // );
       } else {
         const newPerson = await personService.create({
           name: newName,
@@ -89,6 +86,9 @@ const App = () => {
         setErrorMessage(`Added ${newPerson.name}`);
       }
     } catch (error) {
+      setErrorMessage(
+        `Information of ${foundPerson.name} has already removed from server.`
+      );
       setErrorMessage(error.response.data.error);
     }
     setTimeout(() => {
