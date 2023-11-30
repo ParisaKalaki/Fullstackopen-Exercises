@@ -52,9 +52,10 @@ const App = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("llllll");
     const foundPerson = persons.find(({ name }) => name === newName) || false;
     if (foundPerson) {
+      console.log("ssssss");
       if (
         window.confirm(
           `${newName} is already added to phonebook, replace the old number with a new one?`
@@ -80,15 +81,21 @@ const App = () => {
         }
       }
     } else {
-      const newPerson = await personService.create({
-        name: newName,
-        number: newNumber,
-      });
+      try {
+        console.log("fffff");
+        const newPerson = await personService.create({
+          name: newName,
+          number: newNumber,
+        });
 
-      setPersons(persons.concat(newPerson));
-      setNewName("");
-      setNewNumber("");
-      setErrorMessage(`Added ${newPerson.name}`);
+        setPersons(persons.concat(newPerson));
+        setNewName("");
+        setNewNumber("");
+        setErrorMessage(`Added ${newPerson.name}`);
+      } catch (error) {
+        console.log("bbbbb");
+        setErrorMessage(error.response.data.error);
+      }
     }
     setTimeout(() => {
       setErrorMessage(null);

@@ -7,12 +7,8 @@ const getAll = async () => {
 };
 
 const create = async (newObject) => {
-  try {
-    const response = await axios.post(baseUrl, newObject);
-    return response.data;
-  } catch (error) {
-    console.log(error.response.data.error);
-  }
+  const response = await axios.post(baseUrl, newObject);
+  return response.data;
 };
 
 const update = async (id, newObject) => {
