@@ -52,10 +52,8 @@ const App = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("llllll");
     const foundPerson = persons.find(({ name }) => name === newName) || false;
     if (foundPerson) {
-      console.log("ssssss");
       if (
         window.confirm(
           `${newName} is already added to phonebook, replace the old number with a new one?`
@@ -82,7 +80,6 @@ const App = () => {
       }
     } else {
       try {
-        console.log("fffff");
         const newPerson = await personService.create({
           name: newName,
           number: newNumber,
@@ -93,7 +90,6 @@ const App = () => {
         setNewNumber("");
         setErrorMessage(`Added ${newPerson.name}`);
       } catch (error) {
-        console.log("bbbbb");
         setErrorMessage(error.response.data.error);
       }
     }
