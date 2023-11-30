@@ -84,7 +84,7 @@ const App = () => {
         name: newName,
         number: newNumber,
       });
-      if (!error) {
+      if (error === undefined) {
         setPersons(persons.concat(newPerson));
         setNewName("");
         setNewNumber("");
