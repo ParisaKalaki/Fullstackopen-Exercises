@@ -12,11 +12,7 @@ const create = async (newObject) => {
 };
 
 const update = async (id, newObject) => {
-  try {
-    await axios.put(`${baseUrl}/${id}`, newObject);
-  } catch (error) {
-    return error;
-  }
+  await axios.put(`${baseUrl}/${id}`, newObject);
 };
 
 const remove = async (id) => {
