@@ -80,18 +80,15 @@ const App = () => {
         }
       }
     } else {
-      const { newPerson, error } = await personService.create({
+      const newPerson = await personService.create({
         name: newName,
         number: newNumber,
       });
-      if (error === undefined) {
-        setPersons(persons.concat(newPerson));
-        setNewName("");
-        setNewNumber("");
-        setErrorMessage(`Added ${newPerson.name}`);
-      } else {
-        setErrorMessage(`Person validation failed:  ${error}`);
-      }
+
+      setPersons(persons.concat(newPerson));
+      setNewName("");
+      setNewNumber("");
+      setErrorMessage(`Added ${newPerson.name}`);
     }
     setTimeout(() => {
       setErrorMessage(null);
