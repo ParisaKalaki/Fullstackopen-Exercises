@@ -86,9 +86,6 @@ const App = () => {
         setErrorMessage(`Added ${newPerson.name}`);
       }
     } catch (error) {
-      setErrorMessage(
-        `Information of ${foundPerson.name} has already removed from server.`
-      );
       setErrorMessage(error.response.data.error);
     }
     setTimeout(() => {
